@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { comments } from '../data'
 
 // Get one Item by ID
@@ -5,6 +6,7 @@ export async function GET(
   _request: Request,
   { params }: { params: { id: string } }
 ) {
+  if (parseInt(params.id) > comments.length) redirect('/comments')
   const comment = comments.find(comment => comment.id === parseInt(params.id))
   return Response.json(comment)
 }
